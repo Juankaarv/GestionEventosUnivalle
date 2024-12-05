@@ -1,70 +1,116 @@
-# Getting Started with Create React App
+# Sistema de Gestión de Eventos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## **Descripción del Proyecto**
 
-## Available Scripts
+Este sistema permite gestionar eventos, reservas y usuarios de manera eficiente. Ofrece funcionalidades para crear eventos con zonas, gestionar reservas con códigos QR, y validar la asistencia de los usuarios en tiempo real.
 
-In the project directory, you can run:
+### **Características Principales**
+1. **Gestión de Eventos**:
+   - Crear eventos con zonas y definir el número de asientos disponibles por cada zona.
+2. **Gestión de Usuarios**:
+   - Registrar usuarios y asignar roles (Administrador o Cliente).
+3. **Reservas**:
+   - Realizar reservas seleccionando la zona y número de asientos.
+   - Generar un código QR único para cada reserva.
+4. **Validación de QR**:
+   - Escanear el código QR con una cámara para validar la entrada al evento.
+   - Cambiar automáticamente el estado de la reserva de "Pendiente" a "Asistido".
+5. **Reportes**:
+   - Generar reportes en formato PDF sobre reservas y asistentes.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## **Instalación**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Clonar el Repositorio**:
+   ```bash
+   git clone <url-del-repositorio>
+   cd gestion-eventos
+   ```
 
-### `npm test`
+2. **Instalar Dependencias**:
+   Ejecuta los siguientes comandos para instalar las librerías necesarias:
+   ```bash
+   npm install bcrypt
+   npm install dotenv
+   npm install nodemailer
+   npm install sweetalert2
+   npm install qrcode
+   npm install axios
+   npm install multer
+   npm install bootstrap
+   npm install @blackbox-vision/react-qr-reader --legacy-peer-deps
+   npm install react-bootstrap bootstrap
+   npm install pdfkit
+   npm install somepackage
+   npm install lucide-react
+   npm install html5-qrcode
+   npm install jspdf jspdf-autotable
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. **Configurar Variables de Entorno**:
+   Crea un archivo `.env` en la raíz del proyecto con las siguientes claves:
+   ```env
+   DB_HOST=localhost
+   DB_USER=usuario
+   DB_PASSWORD=contraseña
+   DB_NAME=nombre_base_datos
+   ```
 
-### `npm run build`
+4. **Iniciar el Servidor**:
+   Ejecuta el comando:
+   ```bash
+   npm run dev
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## **Estructura del Proyecto**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **Backend**
+1. **Endpoints Principales**:
+   - `POST /eventos`: Crear un nuevo evento con sus zonas y asientos.
+   - `POST /reservas`: Crear una reserva y generar el código QR.
+   - `GET /reservas/:qr`: Validar la reserva mediante el código QR.
+   - `GET /usuarios`: Listar usuarios.
+   - `POST /usuarios`: Registrar nuevos usuarios.
 
-### `npm run eject`
+2. **Funcionalidades**:
+   - **Autenticación**: Contraseñas cifradas con `bcrypt`.
+   - **Correos**: Notificaciones por correo utilizando `nodemailer`.
+   - **Generación de QR**: Crear códigos QR con `qrcode`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### **Frontend**
+1. **Componentes Principales**:
+   - **Gestión de Eventos**:
+     - Formulario para crear eventos y zonas.
+     - Tabla para administrar eventos.
+   - **Reservas**:
+     - Formulario para seleccionar zona y asientos.
+     - Generación de códigos QR.
+   - **Validación de QR**:
+     - Escáner de QR implementado con `@blackbox-vision/react-qr-reader` o `html5-qrcode`.
+   - **Reportes**:
+     - Generación de PDFs con `jspdf` y `jspdf-autotable`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Diseño**:
+   - Interfaz desarrollada con `react-bootstrap` y `bootstrap`.
+   - Notificaciones dinámicas con `sweetalert2`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Gestión de Estado**:
+   - Consumo de APIs con `axios`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## **Flujo del Sistema**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Creación de Eventos**:
+   - El administrador define las zonas y asigna los asientos disponibles por cada zona.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. **Reservas**:
+   - Los usuarios seleccionan un evento, una zona y el número de asientos deseados.
+   - Se genera un código QR asociado a la reserva.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. **Validación de Asistencia**:
+   - En el evento, el administrador escanea el QR del usuario.
+   - Si la reserva es válida, se actualiza su estado.
